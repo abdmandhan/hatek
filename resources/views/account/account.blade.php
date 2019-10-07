@@ -7,89 +7,98 @@
 @stop
 
 @section('content')
+    <style>
+        .form-group{
+            margin-bottom: 0px;
+        }
+    </style>
     @include('layouts.message')
 
-    <div class="container">
-        <div class="row text-center">
-            <div class="form-group">
-                <h2><i class="fa fa-user">{{ Auth::user()->name }}</i></h2>
+    <div class="container-fluid">
+        <div class="row">
+            
+            <div class="col-md-2">
+                <img src="{{ asset("img/".Auth::user()->photo)}}" alt="" srcset="" >
+            </div>
+            <div class="col-md-10">
+                <h2 style="margin-top:0px;">{{ Auth::user()->name }}</h2>
+                <h3>{{ Auth::user()->nim }}</h3>
+                @if (Auth::user()->isVerified)
+                    <a href="{{ route('verify')}}" class="btn btn-success">Verified</a>
+                @else
+                    <a href="{{ route('verify')}}" class="btn btn-danger">Not Verified</a>
+                @endif
             </div>
         </div>
+        <br>
+        <div class="row">
+
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Biodata</h3>
+                    <div class="box-tools pull-right">
+                    <!-- Buttons, labels, and many other things can be placed here! -->
+                    <!-- Here is a label for example -->
+                    <a href="{{ route('account.edit')}}" class="label label-danger">Edit</a>
+                    </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Email:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{ Auth::user()->email }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Telephone:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{ Auth::user()->telp }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Gender:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{ Auth::user()->gender }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Status:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{ Auth::user()->status }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Instagram:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{ Auth::user()->instagram }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Job:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{ Auth::user()->job }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Company:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{ Auth::user()->company }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Kajian:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{ Auth::user()->kajian }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Tugas Akhir:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{ Auth::user()->title }}</p>
+                            </div>
+                        </div>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>
     </div>
-    <table align="center">
-        <tr>    
-            <td colspan="3" align="center"><img src="{{ asset("img/".Auth::user()->photo)}}" alt="" srcset=""></td>
-        </tr>
-        <tr>
-            <td>Nama Lengkap</td>
-            <td>:</td>
-            <td>{{ Auth::user()->name }}</td>
-        </tr>
-        <tr>
-            <td>NIM</td>
-            <td>:</td>
-            <td>{{ Auth::user()->nim }}</td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td>:</td>
-            <td>{{ Auth::user()->email }}</td>
-        </tr>
-        <tr>
-            <td>Telephone</td>
-            <td>:</td>
-            <td>{{ Auth::user()->telp }}</td>
-        </tr>
-        <tr>
-            <td>Gender</td>
-            <td>:</td>
-            <td>{{ Auth::user()->gender }}</td>
-        </tr>
-        <tr>
-            <td>Status</td>
-            <td>:</td>
-            <td>{{ Auth::user()->status }}</td>
-        </tr>
-        <tr>
-            <td>Instagram</td>
-            <td>:</td>
-            <td><a href="http://www.instagram.com/{{ Auth::user()->instagram }}">{{ Auth::user()->instagram }}</a></td>
-        </tr>
-        <tr>
-            <td>Job</td>
-            <td>:</td>
-            <td>{{ Auth::user()->job }}</td>
-        </tr>
-        <tr>
-            <td>Company</td>
-            <td>:</td>
-            <td>{{ Auth::user()->company }}</td>
-        </tr>
-        <tr>
-            <td>Kajian</td>
-            <td>:</td>
-            <td>{{ Auth::user()->kajian }}</td>
-        </tr>
-        <tr>
-            <td>Judul Tugas Akhir</td>
-            <td>:</td>
-            <td>{{ Auth::user()->title }}</td>
-        </tr>
-        <tr>
-            <td>Verified</td>
-            <td>:</td>
-            <td>
-                @if (Auth::user()->isVerified)
-                    <span class="btn btn-success">Verified</span>
-                @else
-                    <span class="btn btn-danger">Not Verified</span>
-                @endif
-            </td>
-        </tr>
-        <tr>
-            @if (!Auth::user()->isVerified)
-                <td colspan="3" align="center"><a href="{{ route("verify")}}" class="btn btn-success">Verify</a></td>
-            @endif
-        </tr>
-    </table>
 @stop
