@@ -4,11 +4,17 @@
 
 @section('content_header')
     <h1>Website Himpunan Alumni Teknik Komputer</h1>
+    
 @stop
 
 @section('content')
     @include('layouts.message')
     <h2>Tentang Website</h2>
+    @foreach ($users as $user)
+        @if($user->isOnline())
+            {{ $user->name }} <br>
+        @endif
+    @endforeach
     <h4>
         <p>Website ini dibuat sebagai media untuk menampung data Alumni Teknik Komputer IPB</p>
     </h4>

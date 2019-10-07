@@ -28,7 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home')->with('users',User::all());
     }
 
     public function verify(){
@@ -57,6 +57,26 @@ class HomeController extends Controller
         $isVerified = Auth::user()->isVerified;        
         if($isVerified){
             $friends = User::where('isVerified',1)->paginate(2);
+            return view('friends')->with('friends',$friends);
+        }else{
+            return redirect('home')->with('error','Silahkan melakukan verifikasi akun');
+        }
+    }
+
+    public function friendsOnline(){
+        $isVerified = Auth::user()->isVerified;        
+        if($isVerified){
+            $friends = User::where('isVerified',1)->get();
+            return view('friendsOnline')->with('friends',$friends);
+        }else{
+            return redirect('home')->with('error','Silahkan melakukan verifikasi akun');
+        }
+    }
+
+    public function friendsGeneration(){
+        $isVerified = Auth::user()->isVerified;        
+        if($isVerified){
+            $friends = User::where('isVerified',1)->where('angkatan',Auth::user()->angkatan)->paginate(2);
             return view('friends')->with('friends',$friends);
         }else{
             return redirect('home')->with('error','Silahkan melakukan verifikasi akun');

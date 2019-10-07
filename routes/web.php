@@ -32,6 +32,8 @@ Route::put('/account/password', 'HomeController@accountPassword')->name('account
 
 Route::get('/verify', 'HomeController@verify')->name('verify');
 Route::get('/friends', 'HomeController@friends')->name('friends');
+Route::get('/friendsOnline', 'HomeController@friendsOnline')->name('friendsOnline');
+Route::get('/friendsGeneration', 'HomeController@friendsGeneration')->name('friendsGeneration');
 
 Route::resource('/post', 'PostController');
 
