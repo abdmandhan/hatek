@@ -8,6 +8,14 @@
 
 @section('content')
     @include('layouts.message')
+
+    <div class="container">
+        <div class="row text-center">
+            <div class="form-group">
+                <h2><i class="fa fa-user">{{ Auth::user()->name }}</i></h2>
+            </div>
+        </div>
+    </div>
     <table align="center">
         <tr>    
             <td colspan="3" align="center"><img src="{{ asset("img/".Auth::user()->photo)}}" alt="" srcset=""></td>
