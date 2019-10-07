@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+<div class="container-fluid">
     <div class="row">
         @foreach ($friends as $friend)
             <div class="col-md-6">
@@ -48,4 +49,12 @@
             </div>
         @endforeach
     </div>
+
+    <div class="row text-center">
+        {{ $friends->links() }}
+    </div>
+</div>
+    
+    
+    
 @stop

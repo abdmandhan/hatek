@@ -56,7 +56,7 @@ class HomeController extends Controller
     public function friends(){
         $isVerified = Auth::user()->isVerified;        
         if($isVerified){
-            $friends = User::where('isVerified',1)->get();
+            $friends = User::where('isVerified',1)->paginate(2);
             return view('friends')->with('friends',$friends);
         }else{
             return redirect('home')->with('error','Silahkan melakukan verifikasi akun');
@@ -87,6 +87,7 @@ class HomeController extends Controller
             $userUpdate->company = $request->input('company');
             $userUpdate->kajian = $request->input('kajian');
             $userUpdate->title = $request->input('title');
+            $userUpdate->photo = strtolower($request->input('gender').'.png');
 
             $userUpdate->save();
 
@@ -117,6 +118,7 @@ class HomeController extends Controller
             $userUpdate->company = $request->input('company');
             $userUpdate->kajian = $request->input('kajian');
             $userUpdate->title = $request->input('title');
+            $userUpdate->photo = strtolower($request->input('gender').'.png');
 
             $userUpdate->save();
             
