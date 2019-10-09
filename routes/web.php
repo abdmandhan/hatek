@@ -41,3 +41,4 @@ Route::post('/post/broadcast','PostController@broadcast')->name('post.broadcast'
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/json', 'HomeController@json')->name('json');

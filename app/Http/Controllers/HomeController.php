@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\UserValidation;
+use DataTables;
 use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
@@ -19,6 +20,10 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function json(){
+        return Datatables::of(User::all())->make(true);
     }
 
     /**

@@ -15,6 +15,21 @@
             {{ $user->name }} <br>
         @endif
     @endforeach
+
+    <table class="table table-bordered" id="users-table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+            </tr>
+        </thead>
+    </table>
+
+    <br>
+    <hr>
     <h4>
         <p>Website ini dibuat sebagai media untuk menampung data Alumni Teknik Komputer IPB</p>
     </h4>
@@ -39,3 +54,22 @@
         <p>Kontak Admin: <strong>hatekipb@gmail.com</strong></p>
     </h4>
 @stop
+
+@push('scripts')
+<script>
+$(function() {
+    $('#users-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: 'home/json',
+        columns: [
+            { data: 'id', name: 'id' },
+            { data: 'name', name: 'name' },
+            { data: 'email', name: 'email' },
+            { data: 'created_at', name: 'created_at' },
+            { data: 'updated_at', name: 'updated_at' }
+        ]
+    });
+});
+</script>
+@endpush
