@@ -22,7 +22,7 @@
                                 <input type="text" name="postId" value="{{ $post->id }}" hidden>
                                 <input type="text" name="userId" value="{{ $post->user->id }}" hidden>
                                 {!! csrf_field() !!}
-                                <button type="submit" class="btn btn-danger btn-block btn-flat">Broadcast this post</button>
+                                <button type="submit" class="btn btn-danger btn-block btn-flat" onclick="return confirm('Are you sure?')">Broadcast this post</button>
                             </form>
                         @endif
                         

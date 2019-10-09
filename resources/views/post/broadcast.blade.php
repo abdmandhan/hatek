@@ -19,6 +19,8 @@
 
         .container {
             margin: 0 5%;
+            position: relative;
+
         }
 
         .header {
@@ -26,6 +28,16 @@
             background: -webkit-linear-gradient(left, #95adbe, #160f30);
             background: linear-gradient(left, #95adbe, #160f30);
             color: white;
+        }
+        .header-text {
+            position: absolute;
+            left: 0;
+            top: 35%;
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            font-family: 'Courier New', Courier, monospace
+
         }
 
         #sponsor {
@@ -45,6 +57,8 @@
         <div class="header">
             <div class="container">
                 <img src="http://asramaipbsukasari.id/images/tek.png" alt="Logo TEK" height="64px">
+                <img src="http://asramaipbsukasari.id/images/hatek.png" alt="Logo TEK" height="64px">
+
             </div>
         </div>
 
