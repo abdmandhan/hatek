@@ -8,6 +8,13 @@
 @stop
 
 @section('content')
+
+    
+    @for ($i = 0; $i < sizeof($instagrams); $i++)
+        <img src="{{ $instagrams[$i]->images->thumbnail->url }}" alt="">
+    @endfor
+
+
     @include('layouts.message')
     <h2>Tentang Website</h2>
     @foreach ($users as $user)

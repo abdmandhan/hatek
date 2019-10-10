@@ -9,6 +9,7 @@ use App\User;
 use App\UserValidation;
 use DataTables;
 use Illuminate\Support\Facades\Hash;
+use Vinkla\Instagram\Instagram;
 
 class HomeController extends Controller
 {
@@ -33,7 +34,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home')->with('users',User::all());
+        $instagram = new Instagram('1332035143.1677ed0.c477d2ac40cc406b8e9b487541bac34a');
+        
+        $insta = $instagram->media();
+        
+        
+        return view('home')->with('users',User::all())->with('instagrams',$insta);
     }
 
     public function verify(){
