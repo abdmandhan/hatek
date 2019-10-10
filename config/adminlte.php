@@ -127,23 +127,6 @@ return [
             'icon'        => 'fa fa-users',
             'label'       => null,
             'label_color' => 'success',
-            'submenu' => [
-                [
-                    'text' => 'Online Friends',
-                    'url'  => 'friendsOnline',
-                    'icon'    => 'fa fa-street-view',
-                ],
-                [
-                    'text' => 'All Generation',
-                    'url'  => 'friends',
-                    'icon'    => 'fa fa-users',
-                ],
-                [
-                    'text' => 'Your Generation',
-                    'url'  => 'friendsGeneration',
-                    'icon'    => 'fas fa-user-graduate',
-                ],
-            ],
         ],
         [
             'text'        => 'Posts',

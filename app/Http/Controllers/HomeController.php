@@ -68,21 +68,12 @@ class HomeController extends Controller
         }
     }
 
-    public function friendsOnline(){
+    public function nim($nim){
         $isVerified = Auth::user()->isVerified;        
         if($isVerified){
-            $friends = User::where('isVerified',1)->get();
-            return view('friendsOnline')->with('friends',$friends);
-        }else{
-            return redirect('home')->with('error','Silahkan melakukan verifikasi akun');
-        }
-    }
-
-    public function friendsGeneration(){
-        $isVerified = Auth::user()->isVerified;        
-        if($isVerified){
-            $friends = User::where('isVerified',1)->where('angkatan',Auth::user()->angkatan)->paginate(2);
-            return view('friends')->with('friends',$friends);
+            $user = User::where('nim',$nim)->first();
+            if($user != null) return view('friends-nim')->with('user',$user);
+            else return redirect()->back()->with("error","NIM tidak ada.");
         }else{
             return redirect('home')->with('error','Silahkan melakukan verifikasi akun');
         }
