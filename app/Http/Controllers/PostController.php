@@ -28,7 +28,7 @@ class PostController extends Controller
         $isVerified = Auth::user()->isVerified;        
         if($isVerified){
             $posts = Post::all();
-            return view('post.posts')->with('posts',$posts);
+            return view('post.posts')->with('posts',Post::all());
         }else{
             return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
         }
