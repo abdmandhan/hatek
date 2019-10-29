@@ -30,7 +30,7 @@ class PostController extends Controller
             $posts = Post::all();
             return view('post.posts')->with('posts',$posts);
         }else{
-            return redirect('home')->with('error','Silahkan melakukan verifikasi akun');
+            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
         }
     }
 
@@ -45,7 +45,7 @@ class PostController extends Controller
         if($isVerified){
             return view('post.create');
         }else{
-            return redirect('home')->with('error','Silahkan melakukan verifikasi akun');
+            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
         }
         
     }
@@ -75,7 +75,7 @@ class PostController extends Controller
 
             return redirect('post')->with('success','Berhasil membuat post');
         }else{
-            return redirect('home')->with('error','Silahkan melakukan verifikasi akun');
+            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
         }
     }
 
@@ -133,7 +133,7 @@ class PostController extends Controller
 
             return redirect('post')->with('success','Berhasil update post');
         }else{
-            return redirect('home')->with('error','Silahkan melakukan verifikasi akun');
+            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
         }
     }
 
@@ -184,7 +184,7 @@ class PostController extends Controller
 
             
         }else{
-            return redirect('home')->with('error','Silahkan melakukan verifikasi akun');
+            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
         }
     }
 }

@@ -41,3 +41,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/json', 'HomeController@json')->name('json');
+Route::get('/about', 'HomeController@about')->name('about');
+
+Route::get('/api', 'HomeController@api')->name('api');

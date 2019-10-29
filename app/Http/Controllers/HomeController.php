@@ -20,7 +20,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     public function json(){
@@ -34,12 +34,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $instagram = new Instagram('1332035143.1677ed0.c477d2ac40cc406b8e9b487541bac34a');
+        //$instagram = new Instagram('1332035143.1677ed0.c477d2ac40cc406b8e9b487541bac34a');
         
-        $insta = $instagram->media();
+        //$insta = $instagram->media();
         
         
-        return view('home')->with('users',User::all())->with('instagrams',$insta);
+        //return view('home')->with('users',User::all())->with('instagrams',$insta);
+
+        $isVerified = Auth::user()->isVerified;        
+        if($isVerified){
+            return view('home')
+            ->with('users',User::all())
+            ->with('friends',User::where('isVerified',1)->get()); 
+        }else{
+            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
+        }
+    }
+
+    public function about(){
+        return view('about')->with('users',User::all()); 
     }
 
     public function verify(){
@@ -70,7 +83,7 @@ class HomeController extends Controller
             $friends = User::where('isVerified',1)->paginate(2);
             return view('friends')->with('friends',$friends);
         }else{
-            return redirect('home')->with('error','Silahkan melakukan verifikasi akun');
+            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
         }
     }
 
@@ -81,7 +94,7 @@ class HomeController extends Controller
             if($user != null) return view('friends-nim')->with('user',$user);
             else return redirect()->back()->with("error","NIM tidak ada.");
         }else{
-            return redirect('home')->with('error','Silahkan melakukan verifikasi akun');
+            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
         }
     }
 
@@ -174,5 +187,14 @@ class HomeController extends Controller
             return redirect()->back()->with("success","Password changed successfully !");
              
             
+    }
+
+    public function api(){
+        
+        return json_encode(User::all());
+    }
+
+    public function login(){
+        
     }
 }
