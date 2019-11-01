@@ -37,7 +37,7 @@
         </div>
 
         <div class="form-group has-feedback {{ $errors->has('body') ? 'has-error' : '' }}">
-            <textarea type="text" name="body" class="form-control" value="{{ $post->body }}"
+            <textarea id="article-ckeditor" type="text" name="body" class="form-control" value="{{ $post->body }}"
                    placeholder="Write Here !" rows="10">{{ $post->body }}</textarea>
             <span class="fa fa-keyboard form-control-feedback"></span>
             @if ($errors->has('body'))

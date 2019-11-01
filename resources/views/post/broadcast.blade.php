@@ -66,7 +66,7 @@
             <h3 class="title">{{ $title }}</h3>
 
             <p>
-                {{ $body }}
+                {!! $body !!}
                 <br><br>
                 Salam,
                 {{ $senderName }}<br>

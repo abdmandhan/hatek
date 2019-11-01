@@ -73,7 +73,7 @@ class PostController extends Controller
             $post->category = $request->input('category');
             $post->save();
 
-            return redirect('post')->with('success','Berhasil membuat post');
+            return redirect('home')->with('success','Berhasil membuat post');
         }else{
             return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
         }
@@ -131,7 +131,7 @@ class PostController extends Controller
             $post->category = $request->input('category');
             $post->save();
 
-            return redirect('post')->with('success','Berhasil update post');
+            return redirect('home')->with('success','Berhasil update post');
         }else{
             return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
         }
@@ -165,19 +165,24 @@ class PostController extends Controller
         if($isVerified){
             $check = Post::find($request->input('postId'));
             if(Auth::user()->id == $check->user->id){
-                $posts = Post::all();
-                $user = User::find($request->input('userId'));
-                $post = Post::find($request->input('postId'));
-                
-                $users = User::all();
-                
-                for ($i=0; $i < sizeof($users) ; $i++) { 
-                    $emails[$i] = $users[$i]->email;
-                }
+                if($check->isBroadcast){
+                    return redirect()->back()->with('error','Gagal broadcast Post, Post sudah di broadcast');
+                }else{
+                    $posts = Post::all();
+                    $user = User::find($request->input('userId'));
+                    $post = Post::find($request->input('postId'));
+                    
+                    $users = User::all();
+                    
+                    for ($i=0; $i < sizeof($users) ; $i++) { 
+                        $emails[$i] = $users[$i]->email;
+                    }
 
-                Mail::to($emails)->send(new Broadcast($user->email, $user->name, $post->title, $post->body, $post->category));
+                    Mail::to($emails)->send(new Broadcast($user->email, $user->name, $post->title, $post->body, $post->category));
 
-                return redirect()->back()->with('success', 'Broadcast success')->with('posts',$posts);
+                    $post->setBroadcast();
+                    return redirect()->back()->with('success', 'Broadcast success')->with('posts',$posts);
+                    }
             }else{
                 return redirect()->back()->with('error','Gagal broadcast Post');
             }

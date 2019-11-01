@@ -19,6 +19,7 @@ class AlterPostsTable extends Migration
             $table->string('title');
             $table->mediumText('body');
             $table->string('category');
+            $table->boolean('isBroadcast')->default(0);
             $table->timestamps();
         });
     }

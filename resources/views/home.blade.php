@@ -5,6 +5,7 @@
 @section('content')
 
 <div class="container-fluid">
+    @include('layouts.message') 
     <div class="row">
         <div class="col-md-8">
             <div class="box box-solid box-primary">
@@ -28,14 +29,14 @@
                                                 <input type="text" name="postId" value="{{ $post->id }}" hidden>
                                                 <input type="text" name="userId" value="{{ $post->user->id }}" hidden>
                                                 {!! csrf_field() !!}
-                                                <button type="submit" class="btn btn-warning btn-block btn-flat" onclick="return confirm('Are you sure?')">Broadcast this post</button>
+                                                <button type="submit" class="btn btn-info btn-block btn-flat" onclick="return confirm('Are you sure?')">Broadcast this post</button>
                                             </form>
                                         @endif
                                         
                                         </div><!-- /.box-tools -->
                                     </div><!-- /.box-header -->
                                     <div class="box-body">
-                                        {{ $post->body }}
+                                        {!!$post->body!!}
                                         <br>
                                     </div><!-- /.box-body -->
                                     <div class="box-footer">
@@ -60,7 +61,7 @@
         </div>
         <div class="col-md-4">
             <div class="row">
-                <div class="box box-success box-solid">
+                <div class="box box-primary box-solid">
                     <div class="box-header with-border">
                         <h3 class="box-title">Online User</h3>
                         <div class="box-tools pull-right">
@@ -78,7 +79,7 @@
                 </div><!-- /.box -->            
             </div>
             <div class="row">
-                <div class="box box-danger box-solid">
+                <div class="box box-primary box-solid">
                     <div class="box-header with-border">
                         <h3 class="box-title">Instagram Teknik Komputer</h3>
                         <div class="box-tools pull-right">

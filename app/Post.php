@@ -14,4 +14,9 @@ class Post extends Model
     public function user(){
         return $this->belongsTo('App\User','user_id');
     }
+
+    public function setBroadcast(){
+        $this->attributes['isBroadcast'] = 1;
+        self::save();
+    }
 }
