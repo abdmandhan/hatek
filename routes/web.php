@@ -44,3 +44,5 @@ Route::get('/home/json', 'HomeController@json')->name('json');
 Route::get('/about', 'HomeController@about')->name('about');
 
 Route::get('/api', 'HomeController@api')->name('api');
+
+Route::get('/kurikulum/{semester}', 'GlobalController@kurikulum')->name('kurikulum');
