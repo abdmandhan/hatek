@@ -18,7 +18,9 @@ class CreateBeritasTable extends Migration
             $table->string('title');
             $table->mediumText('body');
             $table->string('image');
+            $table->boolean('is_show');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

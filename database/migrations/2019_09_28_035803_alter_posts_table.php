@@ -21,6 +21,7 @@ class AlterPostsTable extends Migration
             $table->string('category');
             $table->boolean('isBroadcast')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

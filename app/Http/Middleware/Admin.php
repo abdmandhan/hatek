@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class Verify
+class Admin
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,9 @@ class Verify
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->is_verified == 1){
+        if(auth()->user()->is_admin == 1){
             return $next($request);
         }
-        return redirect('about')->with('error','Silahkan verify akun anda.');
+        return redirect('about')->with('error','Admin Only!');
     }
 }

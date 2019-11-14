@@ -608,7 +608,7 @@
             <div class="border-top pt-5">
               <p>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script>document.write(new Date().getFullYear());</script> Teknik Komputer Sekolah Vokasi IPB | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+            
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
         
@@ -620,24 +620,4 @@
     </footer>
 
   </div> <!-- .site-wrap -->
-
-  @push('changeBackground')
-      {{-- <script>
-        window.onload = function () {
-
-        function changeImage() {   
-            var BackgroundImg=["./templates/images/img_1.jpg",
-                "./templates/images/img_2.jpg",
-                "./templates/images/img_3.jpg",
-                "./templates/images/img_4.jpg"
-            ];
-            var i = Math.floor((Math.random() * 4));
-            var elem = document.getElementById('carousel');
-            elem.style.backgroundImage = 'url("' + BackgroundImg[i] + '")';
-            //document.body.style.backgroundImage = 'url("' + BackgroundImg[i] + '")';
-        }
-        window.setInterval(changeImage, 2000);
-        }
-      </script> --}}
-  @endpush
 @endsection

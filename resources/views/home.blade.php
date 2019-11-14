@@ -7,7 +7,8 @@
     @include('layouts.message') 
     <div class="row">
         <div class="col-md-8">
-            <h2 class="text-center">Post</h2>
+            <a href="{{ route('post.create') }}" class="btn btn-warning">Create Post</a>
+            <h2 class="text-center">Forum</h2>
                 @foreach ($posts as $post)
                     <div class="box box-primary"><!-- /.box -->
                         <div class="box-header with-border">

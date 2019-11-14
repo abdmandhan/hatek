@@ -129,11 +129,6 @@ return [
             'label_color' => 'success',
         ],
         [
-            'text'        => 'Create Post',
-            'icon'        => 'fa fa-edit',
-            'url'  => 'post/create',
-        ],
-        [
             'text'        => 'About',
             'url'         => 'about',
             'icon'        => 'fa fa-info',
