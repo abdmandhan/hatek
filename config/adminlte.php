@@ -129,20 +129,16 @@ return [
             'label_color' => 'success',
         ],
         [
-            'text'        => 'Posts',
-            'icon'        => 'far fa-newspaper',
-            'submenu' => [
-                [
-                    'text' => 'Posts',
-                    'url'  => 'post',
-                    'icon'    => 'fas fa-newspaper',
-                ],
-                [
-                    'text' => 'Create Post',
-                    'url'  => 'post/create',
-                    'icon'    => 'fa fa-edit',
-                ],
-            ],
+            'text'        => 'Create Post',
+            'icon'        => 'fa fa-edit',
+            'url'  => 'post/create',
+        ],
+        [
+            'text'        => 'About',
+            'url'         => 'about',
+            'icon'        => 'fa fa-info',
+            'label'       => null,
+            'label_color' => 'success',
         ],
         ['header' => 'Account Settings'],
         [

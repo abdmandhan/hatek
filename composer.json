@@ -13,6 +13,10 @@
         "jeroennoten/laravel-adminlte": "^1.26",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "php-http/guzzle6-adapter": "^2.0",
+        "php-http/message": "^1.8",
+        "unisharp/laravel-ckeditor": "^4.7",
+        "vinkla/instagram": "^9.3",
         "yajra/laravel-datatables-oracle": "^9.0"
     },
     "require-dev": {

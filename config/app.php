@@ -168,6 +168,7 @@ return [
         
         // Additional Package
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
+        Unisharp\Ckeditor\ServiceProvider::class,
 
         /*
          * Application Service Providers...

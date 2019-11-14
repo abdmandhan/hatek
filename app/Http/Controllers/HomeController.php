@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\UserValidation;
+use App\Post;
+use App\Comment;
 use DataTables;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,7 +21,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     public function json(){
@@ -33,7 +35,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home')->with('users',User::all());
+
+        $isVerified = Auth::user()->isVerified;        
+        if($isVerified){
+            return view('home')
+            ->with('users',User::all())
+            ->with('friends',User::where('isVerified',1)->get())
+            ->with('posts',Post::orderBy('created_at','desc')->get())
+            ->with('comments',Comment::all());
+        }else{
+            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
+        }
+    }
+
+    public function about(){
+        return view('about')->with('users',User::all()); 
     }
 
     public function verify(){
@@ -64,7 +80,7 @@ class HomeController extends Controller
             $friends = User::where('isVerified',1)->paginate(2);
             return view('friends')->with('friends',$friends);
         }else{
-            return redirect('home')->with('error','Silahkan melakukan verifikasi akun');
+            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
         }
     }
 
@@ -75,7 +91,7 @@ class HomeController extends Controller
             if($user != null) return view('friends-nim')->with('user',$user);
             else return redirect()->back()->with("error","NIM tidak ada.");
         }else{
-            return redirect('home')->with('error','Silahkan melakukan verifikasi akun');
+            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
         }
     }
 
@@ -168,5 +184,14 @@ class HomeController extends Controller
             return redirect()->back()->with("success","Password changed successfully !");
              
             
+    }
+
+    public function api(){
+        
+        return json_encode(User::all());
+    }
+
+    public function login(){
+        
     }
 }

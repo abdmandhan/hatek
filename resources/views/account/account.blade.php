@@ -32,7 +32,6 @@
         </div>
         <br>
         <div class="row">
-
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">Biodata</h3>
