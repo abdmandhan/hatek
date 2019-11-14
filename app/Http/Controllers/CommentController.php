@@ -20,6 +20,13 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('verify');
+    }
+
     public function index()
     {
         //
@@ -43,22 +50,18 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $isVerified = Auth::user()->isVerified;        
-        if($isVerified){
-            $this->validate($request,[
-                'body' => ['required', 'string'],
-            ]);
+        $this->validate($request,[
+            'body' => ['required', 'string'],
+        ]);
 
-            $comment = new Comment();
-            $comment->user_id = Auth::user()->id;
-            $comment->post_id = $request->input('postId');
-            $comment->body = $request->input('body');
-            $comment->save();
+        $comment = new Comment();
+        $comment->user_id = Auth::user()->id;
+        $comment->post_id = $request->input('postId');
+        $comment->body = $request->input('body');
+        $comment->save();
 
-            return redirect()->back()->with('success','Berhasil membuat comment');
-        }else{
-            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
-        }
+        return redirect()->back()->with('success','Berhasil membuat comment');
+
     }
 
     /**
@@ -69,16 +72,13 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        $isVerified = Auth::user()->isVerified;        
-        if($isVerified){
-            $post = Post::find($id);
-            $comments = Comment::where('post_id',$id)->orderBy('created_at','desc')->get();
-            return view('post.comment')
-            ->with('post',$post)
-            ->with('comments',$comments);
-        }else{
-            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
-        }
+
+        $post = Post::find($id);
+        $comments = Comment::where('post_id',$id)->orderBy('created_at','desc')->get();
+        return view('post.comment')
+        ->with('post',$post)
+        ->with('comments',$comments);
+
     }
 
     /**

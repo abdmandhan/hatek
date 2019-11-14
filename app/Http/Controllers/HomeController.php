@@ -21,7 +21,10 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
+        $this->middleware('verify')->except([
+            'about', 'verify', 'accountPassword'
+        ]);
     }
 
     public function json(){
@@ -35,17 +38,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        $isVerified = Auth::user()->isVerified;        
-        if($isVerified){
-            return view('home')
-            ->with('users',User::all())
-            ->with('friends',User::where('isVerified',1)->get())
-            ->with('posts',Post::orderBy('created_at','desc')->get())
-            ->with('comments',Comment::all());
-        }else{
-            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
-        }
+        return view('home')
+        ->with('users',User::all())
+        ->with('friends',User::where('is_verified',1)->get())
+        ->with('posts',Post::orderBy('created_at','desc')->get())
+        ->with('comments',Comment::all());
     }
 
     public function about(){
@@ -53,10 +50,10 @@ class HomeController extends Controller
     }
 
     public function verify(){
-        $isVerified = Auth::user()->isVerified;
+        $is_verified = Auth::user()->is_verified;
         $data = UserValidation::where('name',Auth::user()->name)->where('nim',Auth::user()->nim)->first();
         
-        if($isVerified){
+        if($is_verified){
             return redirect('account')->with('success','Account anda sudah verify');
         }else{
             if($data != null){
@@ -64,7 +61,6 @@ class HomeController extends Controller
 
                 $tahun = "20".substr(Auth::user()->nim,4,2);
                 Auth::user()->setVerify();
-                Auth::user()->setAngkatan($tahun-1963);
                 $data->setUsed();
 
                 return redirect('account')->with('success','Berhasil verify account');
@@ -75,29 +71,19 @@ class HomeController extends Controller
     }
 
     public function friends(){
-        $isVerified = Auth::user()->isVerified;        
-        if($isVerified){
-            $friends = User::where('isVerified',1)->paginate(2);
-            return view('friends')->with('friends',$friends);
-        }else{
-            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
-        }
+        $friends = User::where('is_verified',1)->paginate(2);
+        return view('friends')->with('friends',$friends);
     }
 
     public function nim($nim){
-        $isVerified = Auth::user()->isVerified;        
-        if($isVerified){
-            $user = User::where('nim',$nim)->first();
-            if($user != null) return view('friends-nim')->with('user',$user);
-            else return redirect()->back()->with("error","NIM tidak ada.");
-        }else{
-            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
-        }
+        $user = User::where('nim',$nim)->first();
+        if($user != null) return view('friends-nim')->with('user',$user);
+        else return redirect()->back()->with("error","NIM tidak ada.");
     }
 
     public function accountUpdate(Request $request){
 
-        if(Auth::user()->isVerified){
+        if(Auth::user()->is_verified){
             $request->validate([
                 'telp' => ['required', 'string', 'max:20'],
                 'status' => ['required', 'string', 'max:10','in:Mahasiswa,Alumni'],
@@ -189,9 +175,5 @@ class HomeController extends Controller
     public function api(){
         
         return json_encode(User::all());
-    }
-
-    public function login(){
-        
     }
 }

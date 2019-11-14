@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','nim','telp','status','instagram','gender','job','company','kajian','title','photo'
+        'name', 'email', 'password','nim','gender','photo','angkatan','is_tingkat_akhir','is_mahasiswa'
     ];
 
     /**
@@ -39,12 +39,7 @@ class User extends Authenticatable
     ];
 
     public function setVerify(){
-        $this->attributes['isVerified'] = 1;
-        self::save();
-    }
-
-    public function setAngkatan($angkatan){
-        $this->attributes['angkatan'] = $angkatan;
+        $this->attributes['is_verified'] = 1;
         self::save();
     }
 

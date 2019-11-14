@@ -51,14 +51,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:100'],
             'nim' => ['required', 'string', 'max:9','min:9'],
-            'telp' => ['required', 'string', 'max:20'],
-            'status' => ['required', 'string', 'max:10','in:Mahasiswa,Alumni'],
             'gender' => ['required', 'string', 'max:10','in:Male,Female'],
-            'instagram' => ['required', 'string', 'max:20','regex:/^\S*$/u'],
-            'job' => ['required', 'string', 'max:100'],
-            'company' => ['required', 'string', 'max:100'],
-            'kajian' => ['required', 'string', 'max:20','in:Hardware,Jaringan,Multimedia'],
-            'title' => ['required', 'string', 'max:190'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -72,21 +65,41 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {   
+        $tahun_masuk= "20".substr($data['nim'],4,2);
+
         return User::create([
             'name' => $data['name'],
             'nim' => $data['nim'],
-            'telp' => $data['telp'],
-            'status' => $data['status'],
             'gender' => $data['gender'],
-            'instagram' => $data['instagram'],
-            'job' => $data['job'],
-            'company' => $data['company'],
-            'kajian' => $data['kajian'],
-            'title' => $data['title'],
             'photo' => strtolower($data['gender'].'.png'),
             'email' => $data['email'],
+            'angkatan' => $tahun_masuk-1963,
+            'is_mahasiswa' => $this->is_mahasiswa($data['nim']),
+            'is_tingkat_akhir' => $this->is_tingkat_akhir($data['nim']),
             'password' => Hash::make($data['password']),
         ]);
         
+    }
+
+    protected function is_mahasiswa($nim)
+    {
+        $tahun_masuk= "20".substr($nim,4,2);
+        $angkatan = $tahun_masuk-1963;
+        $tahun_now = date('Y'); 
+        $angkatan_akhir = $tahun_now-1963-2;
+
+        if($angkatan>=$angkatan_akhir) return 1;
+        else return 0;
+    }
+
+    protected function is_tingkat_akhir($nim)
+    {
+        $tahun_masuk= "20".substr($nim,4,2);
+        $angkatan = $tahun_masuk-1963;
+        $tahun_now = date('Y'); 
+        $angkatan_akhir = $tahun_now-1963-2;
+
+        if($angkatan==$angkatan_akhir) return 1;
+        else return 0;
     }
 }

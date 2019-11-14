@@ -23,7 +23,7 @@
             <div class="col-md-10">
                 <h2 style="margin-top:0px;">{{ $user->name }}</h2>
                 <h3>{{ $user->nim }}</h3>
-                @if ($user->isVerified)
+                @if ($user->is_verified)
                     <span class="btn btn-success">Verified</span>
                 @else
                     <span class="btn btn-danger">Not Verified</span>

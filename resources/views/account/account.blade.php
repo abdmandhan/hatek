@@ -23,7 +23,7 @@
             <div class="col-md-10">
                 <h2 style="margin-top:0px;">{{ Auth::user()->name }}</h2>
                 <h3>{{ Auth::user()->nim }}</h3>
-                @if (Auth::user()->isVerified)
+                @if (Auth::user()->is_verified)
                     <a href="{{ route('verify')}}" class="btn btn-success">Verified</a>
                 @else
                     <a href="{{ route('verify')}}" class="btn btn-danger">Not Verified</a>
@@ -42,60 +42,24 @@
                     </div><!-- /.box-tools -->
                 </div><!-- /.box-header -->
                 <div class="box-body form-horizontal">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="email">Email:</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">{{ Auth::user()->email }}</p>
-                            </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="email">Email:</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">{{ Auth::user()->email }}</p>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="email">Telephone:</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">{{ Auth::user()->telp }}</p>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="email">Gender:</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">{{ Auth::user()->gender }}</p>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="email">Gender:</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">{{ Auth::user()->gender }}</p>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="email">Status:</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">{{ Auth::user()->is_mahasiswa ? 'Mahasiswa' : 'Alumni' }}</p>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="email">Status:</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">{{ Auth::user()->status }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="email">Instagram:</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">{{ Auth::user()->instagram }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="email">Job:</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">{{ Auth::user()->job }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="email">Company:</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">{{ Auth::user()->company }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="email">Kajian:</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">{{ Auth::user()->kajian }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="email">Tugas Akhir:</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">{{ Auth::user()->title }}</p>
-                            </div>
-                        </div>
+                    </div>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
         </div>

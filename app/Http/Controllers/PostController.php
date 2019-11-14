@@ -17,6 +17,7 @@ class PostController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('verify');
     }
     /**
      * Display a listing of the resource.
@@ -25,13 +26,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $isVerified = Auth::user()->isVerified;        
-        if($isVerified){
-            $posts = Post::all();
-            return view('post.posts')->with('posts',Post::all());
-        }else{
-            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
-        }
+        $posts = Post::all();
+        return view('post.posts')->with('posts',Post::all());
     }
 
     /**
@@ -41,13 +37,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $isVerified = Auth::user()->isVerified;        
-        if($isVerified){
-            return view('post.create');
-        }else{
-            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
-        }
-        
+        return view('post.create');   
     }
 
     /**
@@ -58,25 +48,20 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $isVerified = Auth::user()->isVerified;        
-        if($isVerified){
-            $this->validate($request,[
-                'title' => ['required', 'string', 'max:100'],
-                'body' => ['required', 'string'],
-                'category' => ['required', 'string', 'in:Event,Information,Lowongan Kerja'],
-            ]);
+        $this->validate($request,[
+            'title' => ['required', 'string', 'max:100'],
+            'body' => ['required', 'string'],
+            'category' => ['required', 'string', 'in:Event,Information,Lowongan Kerja'],
+        ]);
 
-            $post = new Post();
-            $post->user_id = Auth::user()->id;
-            $post->title = $request->input('title');
-            $post->body = $request->input('body');
-            $post->category = $request->input('category');
-            $post->save();
+        $post = new Post();
+        $post->user_id = Auth::user()->id;
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        $post->category = $request->input('category');
+        $post->save();
 
-            return redirect('home')->with('success','Berhasil membuat post');
-        }else{
-            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
-        }
+        return redirect('home')->with('success','Berhasil membuat post');
     }
 
     /**
@@ -116,25 +101,20 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $isVerified = Auth::user()->isVerified;        
-        if($isVerified){
-            $this->validate($request,[
-                'title' => ['required', 'string', 'max:100'],
-                'body' => ['required', 'string'],
-                'category' => ['required', 'string', 'in:Event,Information,Lowongan Kerja'],
-            ]);
+        $this->validate($request,[
+            'title' => ['required', 'string', 'max:100'],
+            'body' => ['required', 'string'],
+            'category' => ['required', 'string', 'in:Event,Information,Lowongan Kerja'],
+        ]);
 
-            $post = Post::find($id);
-            $post->user_id = Auth::user()->id;
-            $post->title = $request->input('title');
-            $post->body = $request->input('body');
-            $post->category = $request->input('category');
-            $post->save();
+        $post = Post::find($id);
+        $post->user_id = Auth::user()->id;
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        $post->category = $request->input('category');
+        $post->save();
 
-            return redirect('home')->with('success','Berhasil update post');
-        }else{
-            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
-        }
+        return redirect('home')->with('success','Berhasil update post');
     }
 
     /**
@@ -160,36 +140,29 @@ class PostController extends Controller
     }
 
     public function broadcast(Request $request){
-        //return view('post.broadcast');
-        $isVerified = Auth::user()->isVerified;        
-        if($isVerified){
-            $check = Post::find($request->input('postId'));
-            if(Auth::user()->id == $check->user->id){
-                if($check->isBroadcast){
-                    return redirect()->back()->with('error','Gagal broadcast Post, Post sudah di broadcast');
-                }else{
-                    $posts = Post::all();
-                    $user = User::find($request->input('userId'));
-                    $post = Post::find($request->input('postId'));
-                    
-                    $users = User::all();
-                    
-                    for ($i=0; $i < sizeof($users) ; $i++) { 
-                        $emails[$i] = $users[$i]->email;
-                    }
-
-                    Mail::to($emails)->send(new Broadcast($user->email, $user->name, $post->title, $post->body, $post->category));
-
-                    $post->setBroadcast();
-                    return redirect()->back()->with('success', 'Broadcast success')->with('posts',$posts);
-                    }
+        
+        $check = Post::find($request->input('postId'));
+        if(Auth::user()->id == $check->user->id){
+            if($check->isBroadcast){
+                return redirect()->back()->with('error','Gagal broadcast Post, Post sudah di broadcast');
             }else{
-                return redirect()->back()->with('error','Gagal broadcast Post');
-            }
+                $posts = Post::all();
+                $user = User::find($request->input('userId'));
+                $post = Post::find($request->input('postId'));
+                
+                $users = User::all();
+                
+                for ($i=0; $i < sizeof($users) ; $i++) { 
+                    $emails[$i] = $users[$i]->email;
+                }
 
-            
+                Mail::to($emails)->send(new Broadcast($user->email, $user->name, $post->title, $post->body, $post->category));
+
+                $post->setBroadcast();
+                return redirect()->back()->with('success', 'Broadcast success')->with('posts',$posts);
+                }
         }else{
-            return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
+            return redirect()->back()->with('error','Gagal broadcast Post');
         }
     }
 }
