@@ -19,4 +19,14 @@ class Post extends Model
         $this->attributes['isBroadcast'] = 1;
         self::save();
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+
+    public function likes()
+    {
+        return $this->hasMany('App\Like');
+    }
 }

@@ -33,6 +33,7 @@ Route::get('/friends', 'HomeController@friends')->name('friends');
 Route::get('/friends/{nim}', 'HomeController@nim')->name('nim');
 
 Route::resource('/post', 'PostController');
+Route::resource('/comment', 'CommentController');
 
 Route::post('/post/broadcast','PostController@broadcast')->name('post.broadcast');
 Auth::routes();
@@ -44,3 +45,4 @@ Route::get('/about', 'HomeController@about')->name('about');
 Route::get('/api', 'HomeController@api')->name('api');
 
 Route::get('/kurikulum/{semester}', 'GlobalController@kurikulum')->name('kurikulum');
+Route::get('/like/{id}', 'LikeController@liked')->name('liked');

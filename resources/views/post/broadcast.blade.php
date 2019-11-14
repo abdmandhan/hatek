@@ -56,9 +56,7 @@
     <div class="wrapper">
         <div class="header">
             <div class="container">
-                <img src="http://asramaipbsukasari.id/images/tek.png" alt="Logo TEK" height="64px">
-                <img src="http://asramaipbsukasari.id/images/hatek.png" alt="Logo TEK" height="64px">
-
+                <img src="{{ asset("templates/images/tek.png")}}" alt="Logo TEK" height="64px">
             </div>
         </div>
 

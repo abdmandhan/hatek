@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\UserValidation;
 use App\Post;
+use App\Comment;
 use DataTables;
 use Illuminate\Support\Facades\Hash;
-use Vinkla\Instagram\Instagram;
 
 class HomeController extends Controller
 {
@@ -35,20 +35,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $instagram = new Instagram('1332035143.1677ed0.c477d2ac40cc406b8e9b487541bac34a');
-        
-        $insta = $instagram->media();
-        
-        //return $insta;
-        //return view('home')->with('users',User::all())->with('instagrams',$insta);
 
         $isVerified = Auth::user()->isVerified;        
         if($isVerified){
             return view('home')
             ->with('users',User::all())
             ->with('friends',User::where('isVerified',1)->get())
-            ->with('instagrams',$insta)
-            ->with('posts',Post::all()); 
+            ->with('posts',Post::orderBy('created_at','desc')->get())
+            ->with('comments',Comment::all());
         }else{
             return redirect('about')->with('error','Silahkan melakukan verifikasi akun');
         }
