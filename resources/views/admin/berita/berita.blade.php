@@ -8,7 +8,7 @@
 @section('title', 'HA TEK')
 
 @section('content_header')
-    <h1>Berita</h1>
+    <h1>Berita - <a href="{{ route('berita.create')}}" class="btn btn-primary">Tambah Berita</a></h1>
 @stop
 
 @section('content')
@@ -22,30 +22,39 @@
                     <th>Title</th>
                     <th>Body</th>
                     <th>Image</th>
-                    <th>Show</th>
+                    <th>Status</th>
                     <th>Options</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($beritas as $b)
                     <tr>
-                        <td>{{ $b->id }}</td>
-                        <td>{{ $b->title }}</td>
-                        <td>{{ $b->body }}</td>
-                        <td><img src="{{ url('img/'.$b->image) }}" alt="" srcset="" width="25%"></td>
-                        <td class="{{ $b->is_show ? 'bg-success':'bg-danger'}}">{{ $b->is_show ? 'Show' : 'Hidden' }}</td>
-                        <td>
+                        <td width="5%">{{ $b->id }}</td>
+                        <td width="20%">{{ $b->title }}</td>
+                        <td width="20%">{!! $b->body !!}</td>
+                        <td width="20%" align="center"><img src="{{ url($b->image) }}" alt="" srcset="" width="75%%"></td>
+                        <td width="20%" class="{{ $b->is_show ? 'bg-success':'bg-danger'}}">{{ $b->is_show ? 'Show' : 'Hidden' }}</td>
+                        <td width="15%">
                             <div class="dropdown">
+                                <form action="{{ route('berita.destroy',$b->id) }}" method="POST" id="my_form{{ $b->id }}">
                                 <button class="btn btn-primary dropdown-toggle fa fa-cogs" type="button" data-toggle="dropdown">
                                 <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                  <li><a href="#">Edit</a></li>
-                                  <li><a href="#">Delete</a></li>
-                                  <li><a href="#">{{ $b->is_show ? 'Hidden' : 'Show'}}</a></li>
+                                    <li>
+                                        <a href="{{ route('berita.edit',$b->id) }}">Edit</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:{}" onclick="document.getElementById('my_form{{ $b->id }}').submit();">Delete</a>
+                                    </li>
+                                    <li><a href="{{ route('status',$b->id)}}">{{ $b->is_show ? 'Hidden' : 'Show'}}</a></li>
                                 </ul>
+                                @csrf
+                                @method('delete')
+                                </form>
                             </div>
                         </td>
                     </tr>
+                    
                 @endforeach
             </tbody>
         </table>

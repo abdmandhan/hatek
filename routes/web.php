@@ -34,6 +34,7 @@ Route::get('/friends/{nim}', 'HomeController@nim')->name('nim');
 
 Route::resource('/post', 'PostController');
 Route::resource('/comment', 'CommentController');
+Route::resource('/admin/berita', 'BeritaController');
 
 Route::post('/post/broadcast','PostController@broadcast')->name('post.broadcast');
 Auth::routes();
@@ -47,8 +48,8 @@ Route::get('/api', 'HomeController@api')->name('api');
 Route::get('/kurikulum/{semester}', 'GlobalController@kurikulum')->name('kurikulum');
 Route::get('/like/{id}', 'LikeController@liked')->name('liked');
 
-Route::get('admin/berita','AdminController@berita')->name('berita');
 Route::get('admin/kurikulum','AdminController@kurikulum')->name('kurikulum');
 Route::get('admin/dosen','AdminController@dosen')->name('dosen');
 Route::get('admin/kesan','AdminController@kesan')->name('kesan');
 Route::get('admin/project','AdminController@project')->name('project');
+Route::get('admin/berita/status/{id}','BeritaController@status')->name('status');

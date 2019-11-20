@@ -242,17 +242,21 @@
 
         <div class="row">
           @foreach ($beritas as $berita)
-            <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="">
-              <div class="h-entry">
-                <a href="single.html">
-                  <img src="{{ asset("img/berita/".$berita->image) }}" alt="Image" class="img-fluid">
-                </a>
-                <h2 class="font-size-regular"><a href="#">{{ $berita->title }}</a></h2>
-                <div class="meta mb-4">Teknik Komputer<span class="mx-2">&bullet;</span> {{ $berita->created_at->format('Y-m-d')}}</div>
-                <p>{{ $berita->body }}</p>
-                <p><a href="#">Continue Reading...</a></p>
-              </div> 
-            </div>    
+            @if ($berita->is_show)
+              <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="">
+                <div class="h-entry">
+                  <a href="#">
+                    <img src="{{ asset($berita->image) }}" alt="Image" class="img-fluid" height="100px">
+                  </a>
+                  <h2 class="font-size-regular"><a href="#">{{ $berita->title }}</a></h2>
+                  <div class="meta mb-4">Teknik Komputer<span class="mx-2">&bullet;</span> {{ $berita->created_at->format('Y-m-d')}}</div>
+                  <p>{!! str_limit(strip_tags($berita->body), 100) !!}</p>
+                  @if (strlen(strip_tags($berita->body)) > 100)
+                    <a href="{{ action('BeritaController@show', $berita) }}">Read More</a>
+                  @endif
+                </div> 
+              </div>      
+            @endif
           @endforeach
         </div>
       </div>
@@ -608,7 +612,7 @@
             <div class="border-top pt-5">
               <p>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> Teknik Komputer Sekolah Vokasi IPB | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
         
