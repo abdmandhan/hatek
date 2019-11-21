@@ -63,7 +63,7 @@ class BeritaController extends Controller
         $data->is_show = 1;
         $data->save();
 
-        return redirect('admin/berita/berita')->with('success', 'Berhasil membuat berita');
+        return redirect('admin/berita')->with('success', 'Berhasil membuat berita');
     }
 
     /**
@@ -85,7 +85,8 @@ class BeritaController extends Controller
      */
     public function edit($id)
     {
-        echo $id;
+        $data = Berita::find($id);
+        return view('admin/berita/berita-edit')->with('berita', $data);
     }
 
     /**
@@ -97,7 +98,36 @@ class BeritaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->file('file')) {
+            $this->validate($request, [
+                'title' => ['required', 'string'],
+                'body' => ['required', 'string'],
+                'file' => 'image|mimes:jpeg,png,jpg|max:10000|required',
+            ]);
+
+            $file = $request->file('file');
+            $imageName = time() . '.' . $file->getClientOriginalExtension();
+            $tujuan_upload = 'uploads/images-berita';
+            $file->move($tujuan_upload, $imageName);
+
+            $data = Berita::find($id);
+            $data->title = $request->input('title');
+            $data->body = $request->input('body');
+            $data->image = $tujuan_upload . '/' . $imageName;
+            $data->save();
+        } else {
+            $this->validate($request, [
+                'title' => ['required', 'string'],
+                'body' => ['required', 'string'],
+            ]);
+
+            $data = Berita::find($id);
+            $data->title = $request->input('title');
+            $data->body = $request->input('body');
+            $data->save();
+        }
+
+        return redirect('admin/berita')->with('success', 'Berhasil edit berita');
     }
 
     /**

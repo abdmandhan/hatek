@@ -237,6 +237,19 @@
         <div class="row mb-5">
           <div class="col-12 text-center" data-aos="fade">
             <h2 class="section-title mb-3">Berita</h2>
+            {{ Form::model($order) }}
+                <div>
+                    {{ Form::label('title', 'Title:') }}
+                    {{ Form::text('title') }}
+                </div>
+            
+                <div>
+                    {{ Form::label('description', 'Description:') }}
+                    {{ Form::textarea('description') }}
+                </div>
+            {{ Form::close() }}
+
+
           </div>
         </div>
 
@@ -246,7 +259,7 @@
               <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="">
                 <div class="h-entry">
                   <a href="#">
-                    <img src="{{ asset($berita->image) }}" alt="Image" class="img-fluid" height="100px">
+                    <img src="{{ asset($berita->image) }}" alt="Image" class="" width="350" height="350">
                   </a>
                   <h2 class="font-size-regular"><a href="#">{{ $berita->title }}</a></h2>
                   <div class="meta mb-4">Teknik Komputer<span class="mx-2">&bullet;</span> {{ $berita->created_at->format('Y-m-d')}}</div>
